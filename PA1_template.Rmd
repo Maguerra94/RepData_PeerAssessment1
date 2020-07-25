@@ -59,7 +59,26 @@ interval_max_steps
 totalNA<-sum(is.na(data$steps))
 totalNA
 ```
+2. Devise a strategy for filling in all of the missing values in the dataset. 
+(use the mean/median for that day, or the mean for that 5-minute interval)
+```{r, echo = TRUE}
+meandata<-mean(datana$steps)
+```
+3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
 
+```{r, echo = TRUE}
+data_in <- data
+sum(is.na(data_in))
+```
 
+```{r, echo = TRUE}
+data_in$steps[is.na(data_in$steps)] <- meandata
+colSums(is.na(data_in))
+```
+
+Let's probe it works:
+```{r, echo = TRUE}
+sum(is.na(data_in))
+```
 
 ## Are there differences in activity patterns between weekdays and weekends?

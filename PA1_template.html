@@ -429,6 +429,23 @@ interval_max_steps</code></pre>
 <pre class="r"><code>totalNA&lt;-sum(is.na(data$steps))
 totalNA</code></pre>
 <pre><code>## [1] 2304</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Devise a strategy for filling in all of the missing values in the dataset. (use the mean/median for that day, or the mean for that 5-minute interval)</li>
+</ol>
+<pre class="r"><code>meandata&lt;-mean(datana$steps)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a new dataset that is equal to the original dataset but with the missing data filled in.</li>
+</ol>
+<pre class="r"><code>data_in &lt;- data
+sum(is.na(data_in))</code></pre>
+<pre><code>## [1] 2304</code></pre>
+<pre class="r"><code>data_in$steps[is.na(data_in$steps)] &lt;- meandata
+colSums(is.na(data_in))</code></pre>
+<pre><code>##    steps     date interval 
+##        0        0        0</code></pre>
+<p>Let’s probe it works:</p>
+<pre class="r"><code>sum(is.na(data_in))</code></pre>
+<pre><code>## [1] 0</code></pre>
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
