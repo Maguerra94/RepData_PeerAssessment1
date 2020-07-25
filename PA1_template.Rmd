@@ -83,7 +83,7 @@ sum(is.na(data_in))
 
 4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
 
-```{r, echo = TRUE, results="hide"}
+```{r, results="hide"}
 daily_stepsna<- aggregate( data_in$steps, by= list(Steps.Da=data_in$date), FUN="sum")
 hist(daily_stepsna$x, col="pink",
      breaks=20,
@@ -92,17 +92,41 @@ hist(daily_stepsna$x, col="pink",
      )
 ```
 
+### Comparative Histogram
+
 ```{r, echo = FALSE}
 par(mfrow=c(1,2))
 hist(daily_steps$x, col="pink",
      breaks=20,
-     main= "Total number of steps taken per day",
+     ylim=c(0,20),
+     main= "Total of steps taken per day",
      xlab="Number of steps per day")
 hist(daily_stepsna$x, col="pink",
      breaks=20,
-     main= "Total number of steps taken per day",
+     ylim=c(0,20),
+     main= "Total steps taken per day (filled)",
      xlab="Number of steps per day"
      )
 ```
 
+4.1 . Mean and median number of steps taken each day of the filled data
+```{r, echo = TRUE}
+mean_steps1 <- mean (daily_stepsna [,2])
+print(mean_steps1)
+
+median_steps1 <-median (daily_stepsna [,2])
+print(median_steps1)
+```
+
 ## Are there differences in activity patterns between weekdays and weekends?
+
+1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+
+```{r}
+data_in$date<-as.Date(data_in$date)
+data_in$weekday<- weekdays(data_in$date)
+data_in$day_type<-ifelse(data_in$weekday=="Saturday" |  data_in$weekday=="Sunday", "Weekend", "Weekday")
+data_in$day_type <- factor(data_in$day_type)
+```
+
+

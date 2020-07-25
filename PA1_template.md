@@ -160,6 +160,40 @@ hist(daily_stepsna$x, col="pink",
 
 ![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 
+### Comparative Histogram
+
 ![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
 
+4.1 . Mean and median number of steps taken each day of the filled data
+
+```r
+mean_steps1 <- mean (daily_stepsna [,2])
+print(mean_steps1)
+```
+
+```
+## [1] 10766.19
+```
+
+```r
+median_steps1 <-median (daily_stepsna [,2])
+print(median_steps1)
+```
+
+```
+## [1] 10766.19
+```
+
 ## Are there differences in activity patterns between weekdays and weekends?
+
+1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+
+
+```r
+data_in$date<-as.Date(data_in$date)
+data_in$weekday<- weekdays(data_in$date)
+data_in$day_type<-ifelse(data_in$weekday=="Saturday" |  data_in$weekday=="Sunday", "Weekend", "Weekday")
+data_in$day_type <- factor(data_in$day_type)
+```
+
+
