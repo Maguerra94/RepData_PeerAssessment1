@@ -146,4 +146,20 @@ sum(is.na(data_in))
 ## [1] 0
 ```
 
+4. Make a histogram of the total number of steps taken each day and Calculate and report the mean and median total number of steps taken per day. Do these values differ from the estimates from the first part of the assignment? What is the impact of imputing missing data on the estimates of the total daily number of steps?
+
+
+```r
+daily_stepsna<- aggregate( data_in$steps, by= list(Steps.Da=data_in$date), FUN="sum")
+hist(daily_stepsna$x, col="pink",
+     breaks=20,
+     main= "Total number of steps taken per day",
+     xlab="Number of steps per day"
+     )
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+
+![](PA1_template_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+
 ## Are there differences in activity patterns between weekdays and weekends?
