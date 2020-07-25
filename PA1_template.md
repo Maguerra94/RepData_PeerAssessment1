@@ -81,11 +81,13 @@ print(median_steps)
 
 ```r
 average<-aggregate(datana$steps, by= list(steps.interval=datana$interval), FUN="sum")
-plot(average$steps.interval, average$x, type="l", xlab="Intervals", ylab="Average number of steps taken")
+plot(average$steps.interval, average$x, type="l", col="purple", xlab="Intervals", ylab="Average number of steps taken")
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 2. Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+
 
 ```r
 interval_max_steps <- average[which.max(average$x),]$steps.interval
@@ -196,4 +198,20 @@ data_in$day_type<-ifelse(data_in$weekday=="Saturday" |  data_in$weekday=="Sunday
 data_in$day_type <- factor(data_in$day_type)
 ```
 
+2. Make a panel plot containing a time series plot (i.e. \color{red}{\verb|type = "l"|}type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). 
+
+
+```r
+average_days <- aggregate(steps ~ interval + day_type, data=data_in, mean)
+
+library(ggplot2)
+
+ggplot(average_days, aes(interval, steps)) + 
+    geom_line( colour="purple") + 
+    facet_grid(day_type ~ .) +
+    xlab("5-minute interval") + 
+    ylab("Average number of steps")
+```
+
+![](PA1_template_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
